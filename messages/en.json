@@ -1,0 +1,7 @@
+{
+    "HomePage": {
+      "serviceList": "Service List",
+      "generationQR": "QR generation",
+      "generationBarcode": "Barcode generation"
+    }
+  }

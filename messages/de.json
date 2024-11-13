@@ -1,0 +1,7 @@
+{
+  "HomePage": {
+    "serviceList": "Dienstleistungsliste",
+    "generationQR": "QR-Erzeugung",
+    "generationBarcode": "Barcode-Erzeugung"
+  }
+}
