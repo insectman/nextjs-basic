@@ -12,6 +12,17 @@ const nextConfig = {
         // localeDetection: false,
       }, */
       trailingSlash: true,
+      images: {
+        remotePatterns: [
+          {
+            protocol: 'https',
+            hostname: 'flagcdn.com',
+            port: '',
+            pathname: '/16x12/**',
+          },
+        ],
+      },
+    
 };
 
 // export default nextConfig;

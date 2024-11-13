@@ -3,5 +3,14 @@
     "serviceList": "Dienstleistungsliste",
     "generationQR": "QR-Erzeugung",
     "generationBarcode": "Barcode-Erzeugung"
+  },
+  "LocaleSwitcher": {
+    "label": "Sprache",
+    "en": "Englisch",
+    "am": "Armenisch",
+    "de": "Deutsch",
+    "fr": "Französisch",
+    "ru": "Russisch",
+    "pt": "Portugiesisch"
   }
 }

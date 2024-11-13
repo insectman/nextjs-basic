@@ -1,5 +1,4 @@
 import BackButton from '@/components/BackButton';
-import { LanguageSelector } from '@/components/LanguageSelector';
 
 export default async function RootLayout({
   children,
@@ -9,7 +8,7 @@ export default async function RootLayout({
   return (
     <>
       <BackButton />
-      <LanguageSelector />
+      {/* <LanguageSelector /> */}
       {children}
     </>
   );

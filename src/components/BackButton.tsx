@@ -7,7 +7,7 @@ export default function BackButton() {
 
   const isHomePage = pathname === '/';
 
-  console.log({ pathname });
+  // console.log({ pathname });
 
   return (
     !isHomePage && (
