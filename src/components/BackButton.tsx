@@ -7,8 +7,6 @@ export default function BackButton() {
 
   const isHomePage = pathname === '/';
 
-  // console.log({ pathname });
-
   return (
     !isHomePage && (
       <div className="absolute top-4 left-4">

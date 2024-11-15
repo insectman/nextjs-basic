@@ -4,7 +4,6 @@ import LocaleSwitcherSelect from './LocaleSwitcherSelect';
 import { getMessages, getTranslations } from 'next-intl/server';
 
 export default async function LocaleSwitcher({ locale }: { locale: string }) {
-  console.log('LocaleSwitcher', { locale });
   const t = await getTranslations('LocaleSwitcher');
 
   const options: SwitcherSelectOption[] = [
@@ -37,7 +36,6 @@ export default async function LocaleSwitcher({ locale }: { locale: string }) {
   const selectedOption =
     options.find((option) => option.value === (locale || 'en')) || options[0];
 
-  console.log({ selectedOption });
   const messages = await getMessages();
 
   return (

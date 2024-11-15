@@ -14,6 +14,8 @@ import Select, {
   OptionProps,
   Options,
   SingleValue,
+  SingleValueProps,
+  ValueContainerProps,
 } from 'react-select';
 import { useLocale, useMessages, useTranslations } from 'next-intl';
 
@@ -54,8 +56,6 @@ export default function LocaleSwitcherSelect({
 
   const t = useTranslations('LocaleSwitcher');
 
-  console.log('label', t('label'), { locale, messages });
-
   function onSelectChange(
     option: SingleValue<SwitcherSelectOption>
     // option: SingleValue<SwitcherSelectOption> | MultiValue<SwitcherSelectOption>
@@ -68,14 +68,6 @@ export default function LocaleSwitcherSelect({
     // const localePrefixRegex = new RegExp(`^/${locale}/?`);
     const localePrefixRegex = new RegExp(`^/pt|en|de|fr|ru|am/?`);
     const nextPathname = pathname.replace(localePrefixRegex, '/');
-    console.log({
-      pathname,
-      nextPathname,
-      localePrefixRegex,
-      params,
-      nextLocale,
-      locale,
-    });
     startTransition(() => {
       router.replace(
         // @ts-expect-error -- TypeScript will validate that only known `params`
@@ -108,6 +100,15 @@ export default function LocaleSwitcherSelect({
     </components.Option>
   );
 
+  const SingleValue = ({
+    children,
+    ...props
+  }: SingleValueProps<SwitcherSelectOption>) => (
+    <components.SingleValue {...props}>
+      <span className="ml-2">{t(props.data.value)}</span>
+    </components.SingleValue>
+  );
+
   return (
     <label
       className={clsx(
@@ -126,6 +127,7 @@ export default function LocaleSwitcherSelect({
         components={{
           Option,
           Control,
+          SingleValue,
         }}
       ></Select>
     </label>
