@@ -1,6 +1,7 @@
 'use client';
 
-import { Locale, usePathname, useRouter } from '@/i18n/routing';
+import { Locale } from '@/i18n/routing';
+import { usePathname, useRouter } from '../i18n/routing';
 import clsx from 'clsx';
 import { useParams } from 'next/navigation';
 import { useTransition } from 'react';
@@ -14,7 +15,7 @@ import Select, {
   Options,
   SingleValue,
 } from 'react-select';
-import { useLocale } from 'next-intl';
+import { useLocale, useMessages, useTranslations } from 'next-intl';
 
 type Props = {
   options: Options<SwitcherSelectOption>;
@@ -34,15 +35,6 @@ const getFlagImage = (locale: string) => (
 const localeToCountryCode = (locale: string) =>
   locale === 'en' ? 'gb' : locale;
 
-const Option = (props: OptionProps<SwitcherSelectOption>) => (
-  <components.Option {...props} className="country-option">
-    <span className="flex items-center">
-      {getFlagImage(props.data.value)}
-      <span className="ml-2">{props.data.label}</span>
-    </span>
-  </components.Option>
-);
-
 export default function LocaleSwitcherSelect({
   options,
   //   selectedOption,
@@ -55,6 +47,15 @@ export default function LocaleSwitcherSelect({
 
   const locale = useLocale();
 
+  /* const initialLocale = useLocale();
+  const [locale, setLocale] = useState(initialLocale); */
+
+  const messages = useMessages();
+
+  const t = useTranslations('LocaleSwitcher');
+
+  console.log('label', t('label'), { locale, messages });
+
   function onSelectChange(
     option: SingleValue<SwitcherSelectOption>
     // option: SingleValue<SwitcherSelectOption> | MultiValue<SwitcherSelectOption>
@@ -64,12 +65,23 @@ export default function LocaleSwitcherSelect({
     }
 
     const nextLocale = option.value as Locale;
+    // const localePrefixRegex = new RegExp(`^/${locale}/?`);
+    const localePrefixRegex = new RegExp(`^/pt|en|de|fr|ru|am/?`);
+    const nextPathname = pathname.replace(localePrefixRegex, '/');
+    console.log({
+      pathname,
+      nextPathname,
+      localePrefixRegex,
+      params,
+      nextLocale,
+      locale,
+    });
     startTransition(() => {
       router.replace(
         // @ts-expect-error -- TypeScript will validate that only known `params`
         // are used in combination with a given `pathname`. Since the two will
         // always match for the current route, we can skip runtime checks.
-        { pathname, params },
+        { pathname: nextPathname, params },
         { locale: nextLocale }
       );
     });
@@ -85,6 +97,15 @@ export default function LocaleSwitcherSelect({
         {children}
       </span>
     </components.Control>
+  );
+
+  const Option = (props: OptionProps<SwitcherSelectOption>) => (
+    <components.Option {...props} className="country-option">
+      <span className="flex items-center">
+        {getFlagImage(props.data.value)}
+        <span className="ml-2">{t(props.data.value)}</span>
+      </span>
+    </components.Option>
   );
 
   return (

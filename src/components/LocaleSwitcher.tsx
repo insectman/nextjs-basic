@@ -1,10 +1,11 @@
-import { Locale } from '@/i18n/routing';
 import { SwitcherSelectOption } from '@/types';
-import { useTranslations } from 'next-intl';
+import { NextIntlClientProvider, useTranslations } from 'next-intl';
 import LocaleSwitcherSelect from './LocaleSwitcherSelect';
+import { getMessages, getTranslations } from 'next-intl/server';
 
-export default function LocaleSwitcher({ locale }: { locale: string }) {
-  const t = useTranslations('LocaleSwitcher');
+export default async function LocaleSwitcher({ locale }: { locale: string }) {
+  console.log('LocaleSwitcher', { locale });
+  const t = await getTranslations('LocaleSwitcher');
 
   const options: SwitcherSelectOption[] = [
     {
@@ -37,12 +38,15 @@ export default function LocaleSwitcher({ locale }: { locale: string }) {
     options.find((option) => option.value === (locale || 'en')) || options[0];
 
   console.log({ selectedOption });
+  const messages = await getMessages();
 
   return (
-    <LocaleSwitcherSelect
-      options={options}
-      selectedOption={selectedOption}
-      label={t('label')}
-    ></LocaleSwitcherSelect>
+    <NextIntlClientProvider messages={messages}>
+      <LocaleSwitcherSelect
+        options={options}
+        selectedOption={selectedOption}
+        label={t('label')}
+      ></LocaleSwitcherSelect>
+    </NextIntlClientProvider>
   );
 }

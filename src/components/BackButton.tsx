@@ -11,7 +11,7 @@ export default function BackButton() {
 
   return (
     !isHomePage && (
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-4 left-4">
         <Link href="/" className="text-blue-500 hover:underline">
           Back
         </Link>
