@@ -49,10 +49,13 @@ export default function Home() {
         className={`grid grid-cols-1 md:grid-cols-${Math.min(
           ListOfOptions.length,
           2
-        )} lg:grid-cols-${Math.min(ListOfOptions.length, 3)} gap-4 mx-auto`}
+        )} lg:grid-cols-${Math.min(
+          ListOfOptions.length,
+          3
+        )} gap-4 mx-auto grid-rows-[1fr]`}
       >
         {ListOfOptions.map(({ src, textKey, href }, i) => (
-          <li key={i} className="flex items-center justify-center">
+          <li key={i} className="flex items-start">
             <Card src={src} text={t(textKey)} href={href} />
           </li>
         ))}
